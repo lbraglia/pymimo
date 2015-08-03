@@ -1,0 +1,3 @@
+# pymimo
+
+Python misc modules
