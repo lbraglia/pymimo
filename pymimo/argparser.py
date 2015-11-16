@@ -9,12 +9,13 @@ def argparser(opts):
         optdescription = i[1]
         optdefault = i[2]
         opttype = i[3]
-        # crea
-        help_string = '{0} (default: {1})'.format(optdescription, optdefault)
-        parser.add_argument('--' + optname, help = help_string, type = opttype)
-    # esegui il parser e ottieni i valori
+        # create help string and add argument to parsing
+        help_string = '{0} (default: {1})'.format(optdescription,
+                                                  str(optdefault))
+        parser.add_argument('--' + optname, help = help_string, type = str)
+    # do parsing
     args = vars(parser.parse_args()) #vars to change to a dict
-    # per ogni linea in opts
+    # defaults settings and types management
     for i in opts:
         optname = i[0]
         optdescription = i[1]
@@ -38,15 +39,30 @@ def argparser(opts):
     return(args)
 
 
-def do_tests():
+def test(opts):
+    args = argparser(opts)
+    for key in sorted(args):
+            print "%s: %s" % (key, args[key])
+
+if __name__ == '__main__':
+
     opts = (
         # (param, help, default, returned type)
         ('setup', 'setup host\'s software', 'False', str),
         ('update', 'update host\'s software', 'False', str),
     )
-    args = argparser(opts)
-    print(args)
+    test(opts)
+
+    opts = (
+        ('download', 'download files?', True, bool),
+        ('preprocess', 'preprocess downloaded files?', False, bool),
+        ('years', 'years to be downloaded (PagesList)', 'last available', str),
+        ('eds', 'edition/s to be downloaded (comma separated)', 'SE,SSE', str),
+        ('rawdir', 'dir where to save raw data', './jcr_data', str),
+        ('cleandir', 'dir where to save cleaned data', './jcr_data', str),
+        ('overwrite', 'download again already downloaded files?','False', str),
+        ('quiet', 'turn off verbosity', 'False', str)
+    )
+    test(opts)
 
 
-if __name__ == '__main__':
-    do_tests()
