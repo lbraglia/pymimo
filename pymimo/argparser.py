@@ -33,36 +33,24 @@ def argparser(opts):
             if (args[optname] in true_values):
                 args[optname] = 'True'
             else:
-                args[optname] = 'False'
+                args[optname] = ''
         # converti il tipo a quello specificato
         args[optname] = opttype(args[optname])
     return(args)
 
 
-def test(opts):
+def __test(opts):
     args = argparser(opts)
-    for key in sorted(args):
-            print "%s: %s" % (key, args[key])
+    print(args)
 
 if __name__ == '__main__':
-
     opts = (
-        # (param, help, default, returned type)
-        ('setup', 'setup host\'s software', 'False', str),
-        ('update', 'update host\'s software', 'False', str),
+        ('download', 'logical: download files?', False, bool),
+        ('years', 'integer: years to be downloaded (PagesList)', 1998, int),
+        ('eds', 'str: edition/s to be downloaded (comma separated)',
+         'SE,SSE', str), 
     )
-    test(opts)
-
-    opts = (
-        ('download', 'download files?', True, bool),
-        ('preprocess', 'preprocess downloaded files?', False, bool),
-        ('years', 'years to be downloaded (PagesList)', 'last available', str),
-        ('eds', 'edition/s to be downloaded (comma separated)', 'SE,SSE', str),
-        ('rawdir', 'dir where to save raw data', './jcr_data', str),
-        ('cleandir', 'dir where to save cleaned data', './jcr_data', str),
-        ('overwrite', 'download again already downloaded files?','False', str),
-        ('quiet', 'turn off verbosity', 'False', str)
-    )
-    test(opts)
-
+    __test(opts)
+    
+    
 
