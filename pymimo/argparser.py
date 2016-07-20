@@ -28,6 +28,8 @@ def argparser(opts):
         # se il tipo è logico sostituisci un valore possibile true con
         # l'equivalente python
         if (opttype == bool):
+            # mv to character if not already (not if used optdefault)
+            args[optname] = str(args[optname])
             true_values = ('true', 'True', 'TRUE', 't', 'T', '1', 'y', 'Y',
                            'yes', 'Yes', 'YES') 
             if (args[optname] in true_values):
@@ -45,7 +47,8 @@ def __test(opts):
 
 if __name__ == '__main__':
     opts = (
-        ('download', 'logical: download files?', False, bool),
+        ('download', 'a True default', True, bool),
+        ('another_option', 'a false default', False, bool),
         ('years', 'integer: years to be downloaded (PagesList)', 1998, int),
         ('eds', 'str: edition/s to be downloaded (comma separated)',
          'SE,SSE', str), 
