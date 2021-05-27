@@ -10,4 +10,4 @@ def duplicated(items):
 
 if __name__ == '__main__':
     l = [1,2,1,3]
-    print(list(unique(l)))
+    print(list(duplicated(l)))
